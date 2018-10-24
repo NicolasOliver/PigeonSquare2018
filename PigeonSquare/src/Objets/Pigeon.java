@@ -14,6 +14,8 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -27,6 +29,7 @@ public class Pigeon extends Circle implements Runnable {
     private Point position;
     private int vitesse;
     private Nourriture cible;
+    private ImageView img;
 
     public Pigeon() {
         this.setRadius(10);
@@ -34,6 +37,7 @@ public class Pigeon extends Circle implements Runnable {
         this.setCenterX(0);
         this.setCenterY(0);
         this.setFill(Color.BLACK);
+        img = new ImageView(new Image(getClass().getResourceAsStream("pigeon.png")));
         vitesse = 100;
     }
 
@@ -43,6 +47,23 @@ public class Pigeon extends Circle implements Runnable {
         return position;
     }
 
+    public void deplacementAleatoire(Point destination) {
+        vitesse = 300;
+        double distance = destination.distance(position);
+        this.position = destination;
+        TranslateTransition tr = new TranslateTransition();
+        tr.setNode(this);
+        tr.setToX(destination.getX());
+        tr.setToY(destination.getY());
+        tr.setDuration(Duration.seconds(distance / vitesse));
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tr.play();
+            }
+        });
+        vitesse = 100;
+    }
     
     public synchronized void deplacer(Point destination) {
         double distance = destination.distance(position);
@@ -102,6 +123,9 @@ public class Pigeon extends Circle implements Runnable {
         return vitesse;
     }
 
+    public ImageView getImg() {
+        return img;
+    }
     /**
      * @param vitesse the vitesse to set
      */

@@ -5,7 +5,9 @@
  */
 package Objets;
 
+import java.awt.Image;
 import java.awt.Point;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -15,12 +17,15 @@ public class Nourriture {
     private Boolean etat;
     private Point position;
     private Boolean isEaten;
+    private ImageView img;
 
     public Nourriture(Point position)
     {
         this.position=position;
         etat=true;
         isEaten=false;
+        img = new ImageView(new javafx.scene.image.Image(getClass().getResourceAsStream("freshFood.png")));
+        GameManager.window.AddShape(img);
     }
     
     Point getPosition() {

@@ -35,12 +35,16 @@ public class Window extends Stage
    public final static int SIZE=600; 
    private Group panel;
    private Scene scene;
+   private StackPane root;
      
    public Window()
    {
+       root = new StackPane();
+       root.setId("style");
        panel=new Group();
        scene=new Scene(panel,SIZE,SIZE);
        this.setScene(scene);
+       scene.getStylesheets().add(this.getClass().getResource("background.css").toExternalForm());
        shapes=new ArrayList<Node>();
        scene.setOnMouseClicked(e->
        {
@@ -49,7 +53,11 @@ public class Window extends Stage
            GameManager.instance.ajouterNourriture(position);
        
        });
-       
+       scene.setOnKeyPressed(e->
+       {
+           System.out.println("GUI.Window.<init>()");
+           GameManager.instance.affraid();
+       });
    }
    
    public void AddShape(Node node)

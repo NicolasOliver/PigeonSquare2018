@@ -9,6 +9,7 @@ import GUI.Window;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 public class GameManager 
 {
     
-    public Window window;
+    static public Window window;
     private List<Pigeon> pigeons;
     private List<Nourriture> nourritures;
     public static GameManager instance=new GameManager();
@@ -45,8 +46,18 @@ public class GameManager
     private void ajouterPigeon()
     {
         Pigeon pigeon=new Pigeon();
+        window.AddShape(pigeon.getImg());
         window.AddShape(pigeon);
         pigeons.add(pigeon);
+    }
+    
+    public void affraid()
+    {
+        for(Pigeon p: pigeons)
+        {
+           Random rnd = new Random();
+           p.deplacementAleatoire(new Point(rnd.nextInt(600), rnd.nextInt(600)));
+        }
     }
     
     public void launchGame()
