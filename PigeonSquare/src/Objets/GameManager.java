@@ -28,8 +28,7 @@ public class GameManager
     public static GameManager instance=new GameManager();
     
     public GameManager()
-    {
-       
+    {      
        pigeons=new ArrayList<Pigeon>();
        nourritures=new ArrayList<Nourriture>();
     }
@@ -56,7 +55,7 @@ public class GameManager
         for(Pigeon p: pigeons)
         {
            Random rnd = new Random();
-           p.deplacementAleatoire(new Point(rnd.nextInt(600), rnd.nextInt(600)));
+           p.deplacementAleatoire(new Point(rnd.nextInt(500), rnd.nextInt(500)));
         }
     }
     

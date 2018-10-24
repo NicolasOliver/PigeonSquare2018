@@ -32,19 +32,20 @@ public class Pigeon extends Circle implements Runnable {
     private ImageView img;
 
     public Pigeon() {
-        this.setRadius(10);
+        //this.setRadius(10);
         position = generateRandomPosition();
-        this.setCenterX(0);
-        this.setCenterY(0);
-        this.setFill(Color.BLACK);
-        img = new ImageView(new Image(getClass().getResourceAsStream("pigeon.png")));
+//        this.setCenterX(0);
+//        this.setCenterY(0);
+        //this.setFill(Color.BLACK);
+        img = new ImageView(new Image(getClass().getResourceAsStream("bird.png"), 120, 120, true, true));
+        //img.relocate(position.getX(), position.getY());
         vitesse = 100;
     }
 
     private Point generateRandomPosition() {
         Random rnd = new Random();
-        Point position = new Point(rnd.nextInt(300), rnd.nextInt(300));
-        return position;
+        Point pos = new Point(rnd.nextInt(300), rnd.nextInt(300));
+        return pos;
     }
 
     public void deplacementAleatoire(Point destination) {
@@ -52,7 +53,7 @@ public class Pigeon extends Circle implements Runnable {
         double distance = destination.distance(position);
         this.position = destination;
         TranslateTransition tr = new TranslateTransition();
-        tr.setNode(this);
+        tr.setNode(this.img);
         tr.setToX(destination.getX());
         tr.setToY(destination.getY());
         tr.setDuration(Duration.seconds(distance / vitesse));
@@ -69,7 +70,7 @@ public class Pigeon extends Circle implements Runnable {
         double distance = destination.distance(position);
         this.position = destination;
         TranslateTransition tr = new TranslateTransition();
-        tr.setNode(this);
+        tr.setNode(this.img);
         tr.setToX(destination.getX());
         tr.setToY(destination.getY());
         tr.setDuration(Duration.seconds(distance / vitesse));

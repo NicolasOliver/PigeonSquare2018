@@ -25,6 +25,7 @@ public class Nourriture {
         etat=true;
         isEaten=false;
         img = new ImageView(new javafx.scene.image.Image(getClass().getResourceAsStream("freshFood.png")));
+        img.relocate(position.getX(), position.getY());
         GameManager.window.AddShape(img);
     }
     

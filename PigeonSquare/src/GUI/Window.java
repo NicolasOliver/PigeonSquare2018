@@ -18,6 +18,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -35,16 +37,14 @@ public class Window extends Stage
    public final static int SIZE=600; 
    private Group panel;
    private Scene scene;
-   private StackPane root;
      
    public Window()
    {
-       root = new StackPane();
-       root.setId("style");
        panel=new Group();
        scene=new Scene(panel,SIZE,SIZE);
+       String stylesheet = getClass().getResource("background.css").toExternalForm();
+       scene.getStylesheets().add(stylesheet);
        this.setScene(scene);
-       scene.getStylesheets().add(this.getClass().getResource("background.css").toExternalForm());
        shapes=new ArrayList<Node>();
        scene.setOnMouseClicked(e->
        {
