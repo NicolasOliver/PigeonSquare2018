@@ -71,8 +71,8 @@ public class Pigeon extends Circle implements Runnable {
         this.position = destination;
         TranslateTransition tr = new TranslateTransition();
         tr.setNode(this.img);
-        tr.setToX(destination.getX());
-        tr.setToY(destination.getY());
+        tr.setToX(destination.getX()-35);
+        tr.setToY(destination.getY()-35);
         tr.setDuration(Duration.seconds(distance / vitesse));
         Platform.runLater(new Runnable() {
             @Override

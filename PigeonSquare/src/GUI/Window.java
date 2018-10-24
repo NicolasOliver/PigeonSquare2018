@@ -8,6 +8,8 @@ package GUI;
 import Objets.GameManager;
 import Objets.Pigeon;
 import java.awt.Point;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -38,12 +41,14 @@ public class Window extends Stage
    private Group panel;
    private Scene scene;
      
-   public Window()
+   public Window() throws FileNotFoundException
    {
-       panel=new Group();
+       FileInputStream input = new FileInputStream("src/GUI/grass.png");
+       Image image = new Image(input,600,600,true,true);
+       ImageView imageView = new ImageView(image);
+
+       panel=new Group(imageView);
        scene=new Scene(panel,SIZE,SIZE);
-       String stylesheet = getClass().getResource("background.css").toExternalForm();
-       scene.getStylesheets().add(stylesheet);
        this.setScene(scene);
        shapes=new ArrayList<Node>();
        scene.setOnMouseClicked(e->
