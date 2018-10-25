@@ -8,6 +8,9 @@ package Objets;
 
 import java.awt.Point;
 import java.util.Random;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -29,7 +32,8 @@ public class Pigeon extends Circle implements Runnable {
     public Pigeon() {
         position = generateRandomPosition();
         img = new ImageView(new Image(getClass().getResourceAsStream("bird.png"), 120, 120, true, true));
-        //img.relocate(position.getX(), position.getY());
+        img.setX(position.getX());
+        img.setY(position.getY());
         vitesse = 100;
     }
 
@@ -40,21 +44,19 @@ public class Pigeon extends Circle implements Runnable {
     }
 
     public void deplacementAleatoire(Point destination) {
-        vitesse = 300;
         double distance = destination.distance(position);
         this.position = destination;
-        TranslateTransition tr = new TranslateTransition();
-        tr.setNode(this.img);
-        tr.setToX(destination.getX());
-        tr.setToY(destination.getY());
-        tr.setDuration(Duration.seconds(distance / vitesse));
+        Timeline tl = new Timeline();
+        KeyValue kvX=new KeyValue(img.xProperty(),destination.getX());
+        KeyValue kvY=new KeyValue(img.yProperty(),destination.getY());
+        KeyFrame kf=new KeyFrame(Duration.millis(200),kvX,kvY);
+        tl.getKeyFrames().add(kf);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                tr.play();
+                tl.play();
             }
         });
-        vitesse = 100;
     }
     
     public synchronized void deplacer(Point destination) {
@@ -64,18 +66,19 @@ public class Pigeon extends Circle implements Runnable {
             getCible().setFresh(Boolean.FALSE);
         }
         this.position = destination;
-        TranslateTransition tr = new TranslateTransition();
-        tr.setNode(this.img);
-        tr.setToX(destination.getX()-35);
-        tr.setToY(destination.getY()-35);
-        tr.setDuration(Duration.seconds(distance / vitesse));
+        Timeline tl = new Timeline();
+        KeyValue kvX=new KeyValue(img.xProperty(),destination.getX()-35);
+        KeyValue kvY=new KeyValue(img.yProperty(),destination.getY()-35);
+        KeyFrame kf=new KeyFrame(Duration.millis(300),kvX,kvY);
+        tl.getKeyFrames().add(kf);
+        tl.setOnFinished(e->mangerNourriture());
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                tr.play();
+                tl.play();
             }
         });
-        tr.setOnFinished(e->mangerNourriture());
+        
     }
 
     @Override
