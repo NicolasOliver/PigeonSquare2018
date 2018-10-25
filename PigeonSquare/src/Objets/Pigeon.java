@@ -5,15 +5,11 @@
  */
 package Objets;
 
-import javafx.scene.paint.Color;
+
 import java.awt.Point;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -21,22 +17,17 @@ import javafx.util.Duration;
 
 /**
  *
- * @author Yves
+ * @author Yves, Nicolas, Hans
  */
 public class Pigeon extends Circle implements Runnable {
 
-    private int id;
     private Point position;
     private int vitesse;
     private Nourriture cible;
     private ImageView img;
 
     public Pigeon() {
-        //this.setRadius(10);
         position = generateRandomPosition();
-//        this.setCenterX(0);
-//        this.setCenterY(0);
-        //this.setFill(Color.BLACK);
         img = new ImageView(new Image(getClass().getResourceAsStream("bird.png"), 120, 120, true, true));
         //img.relocate(position.getX(), position.getY());
         vitesse = 100;

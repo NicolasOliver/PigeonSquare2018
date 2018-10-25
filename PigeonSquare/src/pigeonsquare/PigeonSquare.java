@@ -12,11 +12,10 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Yves
+ * @author Yves, Nicolas, Hans
  */
 public class PigeonSquare extends Application{
 
-    private static Stage ps;
     private static GameManager instance;
     @Override
     public void start(Stage primaryStage) throws Exception 

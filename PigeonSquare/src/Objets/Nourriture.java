@@ -5,19 +5,18 @@
  */
 package Objets;
 
-import java.awt.Image;
 import java.awt.Point;
 import javafx.scene.image.ImageView;
 
 /**
  *
- * @author Yves
+ * @author Yves, Nicolas, Hans
  */
 public class Nourriture {
     private Boolean fresh;
-    private Point position;
+    private final Point position;
     private Boolean isEaten;
-    private ImageView img;
+    private final ImageView img;
 
     public Nourriture(Point position)
     {

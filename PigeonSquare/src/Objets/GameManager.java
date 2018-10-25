@@ -10,29 +10,25 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 /**
  *
- * @author Yves
+ * @author Yves, Nicolas, Hans
  */
 public class GameManager 
 {
     
     static public Window window;
-    private List<Pigeon> pigeons;
-    private List<Pigeon> enMouvement;
-    private List<Nourriture> nourritureEnAttente;
+    private final List<Pigeon> pigeons;
+    private final List<Pigeon> enMouvement;
+    private final List<Nourriture> nourritureEnAttente;
     public static GameManager instance=new GameManager();
     
     public GameManager()
     {      
-       enMouvement=new ArrayList<Pigeon>(); 
-       pigeons=new ArrayList<Pigeon>();
-       nourritureEnAttente=new ArrayList<Nourriture>();
+       enMouvement=new ArrayList<>(); 
+       pigeons=new ArrayList<>();
+       nourritureEnAttente=new ArrayList<>();
     }
     
     
@@ -53,33 +49,25 @@ public class GameManager
     
     public void affraid()
     {
-        for(Pigeon p: pigeons)
-        {
-           Random rnd = new Random();
-           p.deplacementAleatoire(new Point(rnd.nextInt(500), rnd.nextInt(500)));
-        }
+        pigeons.forEach((p) -> {
+            Random rnd = new Random();
+            p.deplacementAleatoire(new Point(rnd.nextInt(500), rnd.nextInt(500)));
+        });
     }
     
     public void launchGame()
     {
         initialization();
-        for(Pigeon p: pigeons)
-        {
-           Thread t=new Thread(p);
-           t.start();
-        }
+        pigeons.stream().map((p) -> new Thread(p)).forEachOrdered((t) -> {
+            t.start();
+        });
     }
     
-    private void ajouterNourriture()
-    {
-    
-    }
-
     /**
      * @param window the window to set
      */
     public void setWindow(Window window) {
-        this.window = window;
+        GameManager.window = window;
     }
 
 
@@ -90,7 +78,7 @@ public class GameManager
                 GameManager.window.RemoveShape(nourriture.getImg());
                 nourriture.setIsEaten(true);
                 
-                if(nourritureEnAttente.size()!=0)
+                if(!nourritureEnAttente.isEmpty())
                 {
                     Nourriture n=nourritureEnAttente.get(0);
                     if(n==null)
