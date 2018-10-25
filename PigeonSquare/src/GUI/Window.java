@@ -44,7 +44,7 @@ public class Window extends Stage
    public Window() throws FileNotFoundException
    {
        FileInputStream input = new FileInputStream("src/GUI/grass.png");
-       Image image = new Image(input,600,600,true,true);
+       Image image = new Image(input,650,650,true,true);
        ImageView imageView = new ImageView(image);
 
        panel=new Group(imageView);

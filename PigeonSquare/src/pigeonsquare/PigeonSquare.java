@@ -22,6 +22,7 @@ public class PigeonSquare extends Application{
     public void start(Stage primaryStage) throws Exception 
     {
        primaryStage=new Window();
+       primaryStage.setResizable(false);
        primaryStage.show();
        instance=GameManager.getInstance();
        instance.setWindow((Window)primaryStage);

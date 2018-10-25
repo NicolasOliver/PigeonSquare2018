@@ -46,7 +46,6 @@ public class GameManager
     {
         Pigeon pigeon=new Pigeon();
         window.AddShape(pigeon.getImg());
-        window.AddShape(pigeon);
         pigeons.add(pigeon);
     }
     
@@ -95,14 +94,19 @@ public class GameManager
         this.nourritures = nourritures;
     }
 
-    public void nourritureMangee(Nourriture nourriture)
+    public void nourritureMangee(Nourriture nourriture, Pigeon pigeon)
     {
-    
+        if(!nourriture.getIsEaten()) {
+            if(pigeon.getPosition() == nourriture.getPosition()) {
+                GameManager.window.RemoveShape(nourriture.getImg());
+                nourriture.setIsEaten(true);
+            }
+        }
     }
     
-    public void nourritureAvariee(Nourriture nourriture)
+    public void nourritureAvariee(Nourriture nourriture, Pigeon pigeon)
     {
-    
+        //TODO
     }
     
     public void  ajouterNourriture(Point position)

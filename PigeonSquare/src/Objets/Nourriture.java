@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
  * @author Yves
  */
 public class Nourriture {
-    private Boolean etat;
+    private Boolean fresh;
     private Point position;
     private Boolean isEaten;
     private ImageView img;
@@ -22,7 +22,7 @@ public class Nourriture {
     public Nourriture(Point position)
     {
         this.position=position;
-        etat=true;
+        fresh=true;
         isEaten=false;
         img = new ImageView(new javafx.scene.image.Image(getClass().getResourceAsStream("freshFood.png")));
         img.relocate(position.getX(), position.getY());
@@ -36,14 +36,25 @@ public class Nourriture {
     /**
      * @return the etat
      */
-    public Boolean getEtat() {
-        return etat;
+    public Boolean getFresh() {
+        return fresh;
     }
 
     /**
      * @param etat the etat to set
      */
-    public void setEtat(Boolean etat) {
-        this.etat = etat;
+    public void setFresh(Boolean etat) {
+        this.fresh = etat;
+    }
+    
+    public void setIsEaten(Boolean etat) {
+        this.isEaten = etat;
+    }
+    public Boolean getIsEaten() {
+        return isEaten;
+    }
+    
+    public ImageView getImg() {
+        return img;
     }
 }
