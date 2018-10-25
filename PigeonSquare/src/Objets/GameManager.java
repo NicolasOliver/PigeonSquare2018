@@ -24,13 +24,15 @@ public class GameManager
     
     static public Window window;
     private List<Pigeon> pigeons;
-    private List<Nourriture> nourritures;
+    private List<Pigeon> enMouvement;
+    private List<Nourriture> nourritureEnAttente;
     public static GameManager instance=new GameManager();
     
     public GameManager()
     {      
+       enMouvement=new ArrayList<Pigeon>(); 
        pigeons=new ArrayList<Pigeon>();
-       nourritures=new ArrayList<Nourriture>();
+       nourritureEnAttente=new ArrayList<Nourriture>();
     }
     
     
@@ -80,28 +82,32 @@ public class GameManager
         this.window = window;
     }
 
-    /**
-     * @return the nourritures
-     */
-    public List<Nourriture> getNourritures() {
-        return nourritures;
-    }
-
-    /**
-     * @param nourritures the nourritures to set
-     */
-    public void setNourritures(List<Nourriture> nourritures) {
-        this.nourritures = nourritures;
-    }
 
     public void nourritureMangee(Nourriture nourriture, Pigeon pigeon)
     {
-        if(!nourriture.getIsEaten()) {
-            if(pigeon.getPosition() == nourriture.getPosition()) {
+     /*   if(!nourriture.getIsEaten()) {
+            if(pigeon.getPosition() == nourriture.getPosition()) {*/
                 GameManager.window.RemoveShape(nourriture.getImg());
                 nourriture.setIsEaten(true);
-            }
-        }
+                
+                if(nourritureEnAttente.size()!=0)
+                {
+                    Nourriture n=nourritureEnAttente.get(0);
+                    if(n==null)
+                    {
+                        int a =0;
+                    }
+                    nourritureEnAttente.remove(n);
+                    pigeon.setCible(n);
+                 
+                }
+                else
+                {
+                    enMouvement.remove(pigeon);
+                    pigeons.add(pigeon);
+                }
+           /* }
+        }*/
     }
     
     public void nourritureAvariee(Nourriture nourriture, Pigeon pigeon)
@@ -109,25 +115,35 @@ public class GameManager
         //TODO
     }
     
-    public void  ajouterNourriture(Point position)
+    public synchronized void ajouterNourriture(Point position)
     {
         Nourriture n=new Nourriture(position);
-        Pigeon plusProche=pigeons.get(0);
-        double distance=position.distance(plusProche.getPosition());
-        for(int i=1;i<pigeons.size();i++)
+        int size=pigeons.size();
+        if(size!=0)
         {
-            Pigeon p=pigeons.get(i);
-            if(p.getCible()==null)
+             Pigeon plusProche=pigeons.get(0);
+             double distance=position.distance(plusProche.getPosition());
+            for(int i=1;i<size;i++)
             {
-                double temp=position.distance(p.getPosition());
-                if(temp<distance)
+                Pigeon p=pigeons.get(i);
+                if(p.getCible()==null)
                 {
-                    distance=temp;
-                    plusProche=p;
+                    double temp=position.distance(p.getPosition());
+                    if(temp<distance)
+                    {
+                        distance=temp;
+                        plusProche=p;
+                    }
                 }
             }
+            enMouvement.add(plusProche);
+            pigeons.remove(plusProche);
+            plusProche.setCible(n);
         }
-        plusProche.setCible(n);
+        else
+        {
+            nourritureEnAttente.add(n);
+        }
     }
     
     

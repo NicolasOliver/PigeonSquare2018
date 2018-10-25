@@ -39,7 +39,7 @@ public class Pigeon extends Circle implements Runnable {
         //this.setFill(Color.BLACK);
         img = new ImageView(new Image(getClass().getResourceAsStream("bird.png"), 120, 120, true, true));
         //img.relocate(position.getX(), position.getY());
-        vitesse = 50;
+        vitesse = 100;
     }
 
     private Point generateRandomPosition() {
@@ -80,8 +80,7 @@ public class Pigeon extends Circle implements Runnable {
                 tr.play();
             }
         });
-        tr.setOnFinished(e->
-           mangerNourriture());
+        tr.setOnFinished(e->mangerNourriture());
     }
 
     @Override
@@ -93,13 +92,14 @@ public class Pigeon extends Circle implements Runnable {
         
     }
 
-    private void mangerNourriture() {
-        if (getCible().getFresh()) {
-            GameManager.instance.nourritureMangee(getCible(),this);
+    public void mangerNourriture() {
+        Nourriture c=getCible();
+        this.cible=null;
+        if (c.getFresh()) {
+            GameManager.instance.nourritureMangee(c,this);
         } else {
-            GameManager.instance.nourritureAvariee(getCible(),this);
+            GameManager.instance.nourritureAvariee(c,this);
         }
-        cible=null;
     }
 
     /**
