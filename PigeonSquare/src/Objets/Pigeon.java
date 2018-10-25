@@ -24,7 +24,7 @@ public class Pigeon extends Circle implements Runnable {
     private Point position;
     private int vitesse;
     private Nourriture cible;
-    private ImageView img;
+    private final ImageView img;
 
     public Pigeon() {
         position = generateRandomPosition();
@@ -59,6 +59,10 @@ public class Pigeon extends Circle implements Runnable {
     
     public synchronized void deplacer(Point destination) {
         double distance = destination.distance(position);
+    if(Math.abs(this.getPosition().x - destination.getX()) > 200
+                || Math.abs(this.getPosition().y - destination.getY()) > 200){
+            getCible().setFresh(Boolean.FALSE);
+        }
         this.position = destination;
         TranslateTransition tr = new TranslateTransition();
         tr.setNode(this.img);
@@ -89,6 +93,7 @@ public class Pigeon extends Circle implements Runnable {
         if (c.getFresh()) {
             GameManager.instance.nourritureMangee(c,this);
         } else {
+            c.affAvarie();
             GameManager.instance.nourritureAvariee(c,this);
         }
     }

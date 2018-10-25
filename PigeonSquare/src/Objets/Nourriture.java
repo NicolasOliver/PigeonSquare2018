@@ -17,6 +17,7 @@ public class Nourriture {
     private final Point position;
     private Boolean isEaten;
     private final ImageView img;
+    private final ImageView imgAvarie;
 
     public Nourriture(Point position)
     {
@@ -24,8 +25,14 @@ public class Nourriture {
         fresh=true;
         isEaten=false;
         img = new ImageView(new javafx.scene.image.Image(getClass().getResourceAsStream("freshFood.png")));
+        imgAvarie = new ImageView(new javafx.scene.image.Image(getClass().getResourceAsStream("noFreshFood.png")));
         img.relocate(position.getX(), position.getY());
         GameManager.window.AddShape(img);
+    }
+    
+    public void affAvarie(){
+        imgAvarie.relocate(position.getX(), position.getY());
+        GameManager.window.AddShape(imgAvarie);
     }
     
     Point getPosition() {
@@ -56,4 +63,7 @@ public class Nourriture {
     public ImageView getImg() {
         return img;
     }
+
+    
+    
 }

@@ -100,7 +100,23 @@ public class GameManager
     
     public void nourritureAvariee(Nourriture nourriture, Pigeon pigeon)
     {
-        //TODO
+        
+                nourriture.setIsEaten(false);
+                nourriture.setFresh(Boolean.FALSE);
+                if(!nourritureEnAttente.isEmpty())
+                {
+                    Nourriture n=nourritureEnAttente.get(0);
+                    if(n!=null)
+                    {
+                       nourritureEnAttente.remove(n);
+                       pigeon.setCible(n); 
+    }
+                }
+                else
+                {
+                    enMouvement.remove(pigeon);
+                    pigeons.add(pigeon);
+                }
     }
     
     public synchronized void ajouterNourriture(Point position)
