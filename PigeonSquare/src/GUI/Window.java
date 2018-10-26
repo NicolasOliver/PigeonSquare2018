@@ -30,7 +30,7 @@ public class Window extends Stage
      
    public Window() throws FileNotFoundException
    {
-       FileInputStream input = new FileInputStream("src/GUI/grass.png");
+       FileInputStream input = new FileInputStream("src/GUI/fond.jpg");
        Image image = new Image(input,650,650,true,true);
        ImageView imageView = new ImageView(image);
 

@@ -11,7 +11,6 @@ import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,7 +43,6 @@ public class Pigeon extends Circle implements Runnable {
     }
 
     public void deplacementAleatoire(Point destination) {
-        double distance = destination.distance(position);
         this.position = destination;
         Timeline tl = new Timeline();
         KeyValue kvX=new KeyValue(img.xProperty(),destination.getX());
@@ -60,7 +58,6 @@ public class Pigeon extends Circle implements Runnable {
     }
     
     public synchronized void deplacer(Point destination) {
-        double distance = destination.distance(position);
     if(Math.abs(this.getPosition().x - destination.getX()) > 200
                 || Math.abs(this.getPosition().y - destination.getY()) > 200){
             getCible().setFresh(Boolean.FALSE);

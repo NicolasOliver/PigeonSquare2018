@@ -73,8 +73,6 @@ public class GameManager
 
     public void nourritureMangee(Nourriture nourriture, Pigeon pigeon)
     {
-     /*   if(!nourriture.getIsEaten()) {
-            if(pigeon.getPosition() == nourriture.getPosition()) {*/
                 GameManager.window.RemoveShape(nourriture.getImg());
                 nourriture.setIsEaten(true);
                 
@@ -94,8 +92,6 @@ public class GameManager
                     enMouvement.remove(pigeon);
                     pigeons.add(pigeon);
                 }
-           /* }
-        }*/
     }
     
     public void nourritureAvariee(Nourriture nourriture, Pigeon pigeon)
